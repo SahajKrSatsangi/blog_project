@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Home</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<div class="container">
+    <h1>Welcome to the Blog</h1>
+
+    {% if user.is_authenticated %}
+        <p>Hello, {{ user.username }}!</p>
+        <a href="{% url 'logout' %}">Logout</a>
+        <h2>Recent Blogs:</h2>
+        <ul>
+            {% for blog in blogs %}
+                <li>{{ blog.title }} - {{ blog.author.username }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>
+            <a href="{% url 'login' %}">Login</a> or
+            <a href="{% url 'register' %}">Register</a> to create and view blogs.
+        </p>
+    {% endif %}
+</div>
+
+</body>
+</html>

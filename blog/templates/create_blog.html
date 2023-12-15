@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Blog</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<div class="container">
+    <h1>Create New Blog</h1>
+
+    {% if user.is_authenticated %}
+        <form method="post" action="{% url 'blog-list-create' %}">
+            {% csrf_token %}
+            <label for="title">Title:</label>
+            <input type="text" name="title" required><br>
+            <label for="content">Content:</label>
+            <textarea name="content" required></textarea><br>
+            <input for="author" value=1 required>
+            <input type="submit" value="Create Blog">
+        </form>
+    {% else %}
+        <p>Please <a href="{% url 'login' %}">login</a> to create a new blog.</p>
+    {% endif %}
+</div>
+
+</body>
+</html>
